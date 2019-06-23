@@ -10,16 +10,6 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-      <el-form-item
-        prop="email"
-        label="邮箱"
-        :rules="[
-      { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-      { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-    ]"
-      >
-        <el-input v-model="dynamicValidateForm.email"></el-input>
-      </el-form-item>
       <el-form-item label="密码" prop="pass">
         <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
       </el-form-item>
@@ -54,6 +44,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      this.$router.replace('/welcome')
       this.$refs[formName].validate(valid => {
         if (valid) {
           alert("submit!");

@@ -5,6 +5,7 @@ import Layout from './layout/Layout.vue'
 import Login from './pages/user/Login.vue'
 import Register from './pages/user/Register.vue'
 import Container from './container/Container.vue'
+import Welcome from './pages/Welcome.vue'
 
 
 Vue.use(Router);
@@ -14,6 +15,7 @@ export default new Router({
     routes:[
         {
             path:'/user',
+            redirect:'/user/login',
             component: Layout,
             children:[
                 {
@@ -33,6 +35,10 @@ export default new Router({
                 {
                     path:'/',
                     redirect:'/user/login'
+                },
+                {
+                    path:'/welcome',
+                    component:Welcome
                 }
             ]
         }
