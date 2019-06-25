@@ -2,23 +2,27 @@
   <div class="container">
     <el-form
       :model="ruleForm"
-      :rules="rules"
-      label-position="left"
       status-icon
+      :rules="rules"
       ref="ruleForm"
-      label-width="60px"
+      label-width="100px"
       class="demo-ruleForm"
     >
       <el-form-item label="邮箱" prop="email">
-        <el-input type="email" v-model="ruleForm.email" autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.email"></el-input>
+      </el-form-item>
+      <el-form-item label="手机号" prop="phone">
+        <el-input v-model="ruleForm.phone"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="pass">
         <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
       </el-form-item>
-      <div class="userOperate">
-        <router-link to="forgot">忘记密码</router-link>
-        <router-link to="register">用户注册</router-link>
-      </div>
+      <el-form-item label="确认密码" prop="checkPass">
+        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+      </el-form-item>
+      <p class='login'>
+        <router-link to="login">返回登录</router-link>
+      </p>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -29,6 +33,16 @@
 <script>
 export default {
   data() {
+    var checkPhone = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("手机号不能为空"));
+      }
+      if (!/^1[3456789]\d{9}$/.test(value)) {
+        return callback(new Error("请填写正确的手机号"));
+      } else {
+        callback();
+      }
+    };
     var checkEmail = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("邮箱不能为空"));
@@ -51,28 +65,41 @@ export default {
         callback(new Error("请输入非纯数字、纯字母、纯特殊字符8-16位的密码"));
       }
       else {
+        if (this.ruleForm.checkPass !== "") {
+          this.$refs.ruleForm.validateField("checkPass");
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.ruleForm.pass) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
         callback();
       }
     };
     return {
       ruleForm: {
+        phone: "",
         email: "",
-        pass: ""
+        pass: "",
       },
       rules: {
+        phone: [{ validator: checkPhone, trigger: "blur" }],
         email: [{ validator: checkEmail, trigger: "blur" }],
-        pass: [{ validator: validatePass, trigger: "blur" }]
+        pass: [{ validator: validatePass, trigger: "blur" }],
+        checkPass: [{ validator: validatePass2, trigger: "blur" }]
       }
     };
   },
   methods: {
     submitForm(formName) {
-      this.$router.replace("/welcome");
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          console.log(this.ruleForm);
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -90,14 +117,11 @@ export default {
   text-align: center;
   margin: 0 auto;
 }
-.userOperate {
+.login{
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
+  text-align: right;
 }
-a,
-a:hover {
+a,a:hover{
   text-decoration: none;
 }
 </style>
