@@ -23,7 +23,7 @@
       <el-form-item label="确认密码" prop="checkPass">
         <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
       </el-form-item>
-      <p class='login'>
+      <p class="login">
         <router-link to="login">返回登录</router-link>
       </p>
       <el-form-item>
@@ -74,10 +74,9 @@ export default {
       if (value === "") {
         callback(new Error("请输入密码"));
       }
-      if(!/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/.test(value)){
+      if (!/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/.test(value)) {
         callback(new Error("请输入非纯数字、纯字母、纯特殊字符8-16位的密码"));
-      }
-      else {
+      } else {
         if (this.ruleForm.checkPass !== "") {
           this.$refs.ruleForm.validateField("checkPass");
         }
@@ -122,21 +121,24 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
-  }
+  },
+  mounted() {
+    // alert(32453)
+  },
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .container {
   width: 100%;
   max-width: 400px;
   text-align: center;
   margin: 0 auto;
-}
-.login{
-  width: 100%;
-  text-align: right;
-}
-a,a:hover{
-  text-decoration: none;
+  .login {
+    text-align: right;
+    a,
+    a:hover {
+      text-decoration: none;
+    }
+  }
 }
 </style>

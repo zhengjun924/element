@@ -46,11 +46,10 @@ export default {
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
-      } 
-      if(!/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/.test(value)){
-        callback(new Error("请输入非纯数字、纯字母、纯特殊字符8-16位的密码"));
       }
-      else {
+      if (!/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/.test(value)) {
+        callback(new Error("请输入非纯数字、纯字母、纯特殊字符8-16位的密码"));
+      } else {
         callback();
       }
     };
@@ -66,11 +65,15 @@ export default {
     };
   },
   methods: {
+     
     submitForm(formName) {
-      this.$router.replace("/welcome");
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.$axios({
+            method: "post",
+            url: "/zheng/user/login",
+            data: this.ruleForm
+          });
         } else {
           console.log("error submit!!");
           return false;
@@ -83,21 +86,21 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .container {
   width: 100%;
   max-width: 400px;
   text-align: center;
   margin: 0 auto;
-}
-.userOperate {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-a,
-a:hover {
-  text-decoration: none;
+  .userOperate {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    a,
+    a:hover {
+      text-decoration: none;
+    }
+  }
 }
 </style>

@@ -110,18 +110,18 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .container {
   width: 100%;
   max-width: 400px;
   text-align: center;
   margin: 0 auto;
-}
-.login{
-  width: 100%;
-  text-align: right;
-}
-a,a:hover{
-  text-decoration: none;
+  .login {
+    text-align: right;
+    a,
+    a:hover {
+      text-decoration: none;
+    }
+  }
 }
 </style>
