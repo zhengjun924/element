@@ -9,7 +9,7 @@
       class="demo-ruleForm"
     >
       <el-form-item label="用户名" prop="userName">
-        <el-input v-model="ruleForm.userName"></el-input>
+        <el-input v-model="ruleForm.userName" ></el-input>
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="ruleForm.email"></el-input>
@@ -43,6 +43,10 @@ export default {
       if (!/^[0-9a-zA-Z]{3,}$/.test(value)) {
         return callback(new Error("请填写除字符外至少三位的非中文用户名"));
       } else {
+        this.$axios({
+          method:'post',
+          url:'/zheng/user/'
+        })
         callback();
       }
     };
@@ -122,9 +126,14 @@ export default {
       this.$refs[formName].resetFields();
     }
   },
+  watch: {
+    'ruleForm.userName'(newval){
+      
+    }
+  },
   mounted() {
     // alert(32453)
-  },
+  }
 };
 </script>
 <style scoped lang="less">
