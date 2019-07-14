@@ -12,7 +12,10 @@
     </el-carousel>
   </div>
 </template>
-
+<script>
+export default {
+}
+</script>
 <style scoped>
 .el-carousel__item{
   text-align: center;
