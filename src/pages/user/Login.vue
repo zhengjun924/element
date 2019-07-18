@@ -83,14 +83,11 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate(async valid => {
         if (valid) {
-          this.$axios({
-            method: "post",
-            url: "/zheng/user/login",
-            data: this.ruleForm
-          });
+          const res = await this.$axios.post('/zheng/user/login',this.ruleForm) 
         } else {
+          window.sessionStorage.setItem('token','1234');
           console.log("error submit!!");
           return false;
         }
@@ -99,7 +96,7 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
-  }
+  },
 };
 </script>
 <style scoped lang="less">

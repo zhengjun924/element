@@ -9,7 +9,20 @@
     <el-col
       :span="8"
       :offset="8"
+      class="rightBox"
     >
+      <el-dropdown @command='handClick'>
+        <el-avatar
+          :size="60"
+          @error="errorHandler"
+        >
+          <img src="@/assets/logo.png" />
+        </el-avatar>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="setting">个人设置</el-dropdown-item>
+          <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </el-col>
   </el-row>
 </template>
@@ -26,9 +39,35 @@ export default {
       this.$emit("getCollapse", this.isCollapse);
     }
   },
-  methods: {}
+  methods: {
+    handClick(command) {
+      switch (command) {
+        case "setting":
+          console.log(231324);
+          break;
+        case "logout":
+          this.logout();
+          break;
+      }
+    },
+    logout() {
+      // this.$router.replace("/user/login");
+      this.$message({
+        message: "退出成功",
+        type: "success"
+      });
+      // window.sessionStorage.clear();
+    },
+    errorHandler() {
+      return true;
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
+.rightBox {
+  text-align: right;
+  padding-right: 15px;
+}
 </style>

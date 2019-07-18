@@ -36,17 +36,14 @@
 <script>
 export default {
   data() {
-    var checkUsername = (rule, value, callback) => {
+    var checkUsername = async (rule, value, callback) => {
       if (!value) {
         return callback(new Error("用户名不能为空"));
       }
       if (!/^[0-9a-zA-Z]{3,}$/.test(value)) {
         return callback(new Error("请填写除字符外至少三位的非中文用户名"));
       } else {
-        this.$axios({
-          method:'post',
-          url:'/zheng/user/'
-        })
+        const {data:res} = await this.$axios.post('/zheng/user/register/userName',{'userName':value});
         callback();
       }
     };
@@ -114,9 +111,9 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate( async valid => {
         if (valid) {
-          console.log(this.ruleForm);
+          // await $axios.post('/zheng/user/register',this.ruleForm)
         } else {
           return false;
         }
@@ -128,7 +125,6 @@ export default {
   },
   watch: {
     'ruleForm.userName'(newval){
-      
     }
   },
   mounted() {

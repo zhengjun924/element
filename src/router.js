@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from './layout/Layout.vue'
-import Login from './pages/user/Login.vue'
-import Register from './pages/user/Register.vue'
-import Forgot from './pages/user/Forgot.vue'
+import Login from '@/pages/user/Login.vue'
+import Register from '@/pages/user/Register.vue'
+import Forgot from '@/pages/user/Forgot.vue'
 import Container from './container/Container.vue'
-import Welcome from './pages/Welcome.vue'
-import Barea from './pages/Barea.vue'
+import Welcome from '@/pages/Welcome.vue'
+import Barea from '@/pages/Barea.vue'
 
 
 
@@ -14,50 +14,66 @@ Vue.use(Router);
 
 const router = new Router({
     mode: 'history',
-    routes:[
+    routes: [
         {
-            path:'/user',
-            redirect:'/user/login',
+            path: "*",
+            redirect: '/welcome'
+        },
+        {
+            path: '/user',
+            redirect: '/user/login',
             component: Layout,
-            children:[
+            children: [
                 {
                     path: '/user/login',
-                    name:'登录',
+                    name: 'login',
                     component: Login,
+                    meta: {
+                        title: '登录',
+                        requireAuth:true,
+                    }
                 },
                 {
                     path: '/user/register',
-                    name: '注册',
-                    component: Register
+                    name: 'register',
+                    component: Register,
+                    meta: {
+                        title: '注册',
+                        requireAuth: true,
+                    }
                 },
                 {
-                    path:'/user/forgot',
-                    name: '忘记密码',
-                    component:Forgot
+                    path: '/user/forgot',
+                    name: 'forgot',
+                    component: Forgot,
+                    meta: {
+                        title: '忘记密码',
+                        requireAuth: true,
+                    }
                 }
             ]
         },
         {
-            path:'/',
+            path: '/',
+            redirect: '/user/login',
             component: Container,
-            children:[
+            children: [
                 {
-                    path:'/',
-                    redirect:'/user/login'
+                    path: '/login',
+                    redirect: '/user/login'
                 },
                 {
-                    path:'/login',
-                    redirect:'/user/login'
-                },
-                {
-                    path:'/welcome',
-                    component:Welcome,
-                    meta:{
-                        title:'欢迎'
+                    path: '/welcome',
+                    name: 'welcome',
+                    component: Welcome,
+                    meta: {
+                        title: '欢迎',
+                        keepAlive: true
                     }
                 },
                 {
                     path: '/bArea',
+                    name: 'bArea',
                     component: Barea,
                     meta: {
                         title: 'B域'
@@ -67,9 +83,5 @@ const router = new Router({
         }
     ]
 })
-router.beforeEach((to, from, next) => {
-    // 根据路由元信息设置文档标题
-    window.document.title = to.meta.title || 'element'
-    next()
-})
+
 export default router;

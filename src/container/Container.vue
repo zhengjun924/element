@@ -58,7 +58,7 @@
         >
           <img
             class="gitHub"
-            src="../assets/GitHub.png"
+            src="@/assets/GitHub.png"
             alt
           />
         </el-link>
@@ -74,7 +74,8 @@
   </el-container>
 </template>
 <script>
-import GlobalHeader from "../components/GlobalHeader/Header";
+import GlobalHeader from "@/components/GlobalHeader/Header";
+import Container from "./Container.less";
 
 export default {
   name: "container",
@@ -94,40 +95,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.el-container {
-  height: 100vh;
-  .el-aside {
-    background: #002140;
-    .logo {
-      display: block;
-      width: 32px;
-      height: 32px;
-      margin: 10px auto;
-    }
-  }
 
-  .el-header {
-    line-height: 60px;
-    box-shadow: 0px 1px 5px #ccc;
-    .el-radio-group {
-      display: inline-block;
-    }
-  }
-  .el-menu-vertical-demo {
-    &:not(.el-menu--collapse) {
-      width: 158px;
-    }
-  }
-  .el-footer {
-    width: 100%;
-    text-align: center;
-    padding: 15px 0;
-    .gitHub {
-      margin: 0 5px;
-    }
-  }
-  .container {
-    padding: 20px;
-  }
-}
 </style>
+

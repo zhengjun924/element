@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div @click="login">
         Niaho
     </div>
 </template>
@@ -8,6 +8,9 @@
     export default {
         name:'bArea',
         methods: {
+            login(){
+                console.log(23453245)
+            },
             fetch(){
                this.$axios.post('/zheng/user/login',{
                    data:{
@@ -21,7 +24,7 @@
             }
         },
         mounted() {
-            this.fetch();
+            this.fetch()
         },
     }
 </script>
