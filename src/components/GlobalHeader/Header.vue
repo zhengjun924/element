@@ -16,7 +16,7 @@
           :size="60"
           @error="errorHandler"
         >
-          <img src="@/assets/logo.png" />
+          <img :src="defaultAvatar" />
         </el-avatar>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="setting">个人设置</el-dropdown-item>
@@ -31,7 +31,8 @@
 export default {
   data() {
     return {
-      isCollapse: true
+      isCollapse: false,
+      defaultAvatar:""
     };
   },
   watch: {
@@ -51,17 +52,24 @@ export default {
       }
     },
     logout() {
-      // this.$router.replace("/user/login");
+      this.$router.replace("/user/login");
       this.$message({
         message: "退出成功",
         type: "success"
       });
-      // window.sessionStorage.clear();
+      window.sessionStorage.clear();
     },
     errorHandler() {
       return true;
+    },
+    async getAvatar(){
+      const {data} = await this.$axios.get('/zheng/userinfo/getHeadSculpture')
+      this.defaultAvatar = data.url;
     }
-  }
+  },
+  mounted() {
+    this.getAvatar();
+  },
 };
 </script>
 

@@ -19,8 +19,8 @@ Vue.prototype._ = _;
 Vue.use(ElementUI);
 Vue.use(VueLazyload, {
   preLoad: 1.3,
-  error: '@/assets/error.jpg',
-  loading: '@/assets/loading.gif',
+  error: '@/assets/carousel/error.jpg',
+  loading: '@/assets/carousel/loading.gif',
   attempt: 1
 });
 

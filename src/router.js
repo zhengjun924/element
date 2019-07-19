@@ -1,12 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Layout from './layout/Layout.vue'
-import Login from '@/pages/user/Login.vue'
-import Register from '@/pages/user/Register.vue'
-import Forgot from '@/pages/user/Forgot.vue'
+import Login from '@/pages/User/Login.vue'
+import Register from '@/pages/User/Register.vue'
+import Forgot from '@/pages/User/Forgot.vue'
+
 import Container from './container/Container.vue'
 import Welcome from '@/pages/Welcome.vue'
 import Barea from '@/pages/Barea.vue'
+import ComingSoon from '@/pages/DouBan/ComingSoon'
+import InTheaters from '@/pages/DouBan/InTheaters'
+import Top250 from '@/pages/DouBan/Top250'
 
 
 
@@ -30,7 +35,7 @@ const router = new Router({
                     component: Login,
                     meta: {
                         title: '登录',
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
                 {
@@ -78,7 +83,31 @@ const router = new Router({
                     meta: {
                         title: 'B域'
                     }
-                }
+                },
+                {
+                    path: '/douBan/comingSoon',
+                    name: 'comingSoon',
+                    component: ComingSoon,
+                    meta: {
+                        title: '即将上映'
+                    }
+                },
+                {
+                    path: '/douBan/inTheaters',
+                    name: 'inTheaters',
+                    component: InTheaters,
+                    meta: {
+                        title: '正在热映'
+                    }
+                },
+                {
+                    path: '/douBan/top250',
+                    name: 'top250',
+                    component: Top250,
+                    meta: {
+                        title: 'top250'
+                    }
+                },
             ]
         }
     ]

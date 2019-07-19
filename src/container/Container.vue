@@ -3,14 +3,14 @@
     <el-aside width="auto">
       <router-link to="/welcome">
         <img
-          src="../assets/logo.png"
+          src="@/assets/logo/logo.png"
           alt=""
           class="logo"
         >
       </router-link>
       <el-menu
         class="el-menu-vertical-demo"
-        default-active="/welcome"
+        :default-active="this.$router.path"
         :collapse="isCollapse"
         router
         background-color="#001529"
@@ -21,17 +21,16 @@
           <i class="el-icon-s-home"></i>
           <span slot="title">选项一</span>
         </el-menu-item>
-        <el-submenu index="1">
+        <el-submenu index="/douBan">
           <template slot="title">
-            <i class="el-icon-location"></i>
-            <span slot="title">导航一</span>
+            <i class="el-icon-video-camera-solid"></i>
+            <span slot="title">豆瓣电影</span>
           </template>
-          <el-submenu index="1-4">
-            <span slot="title">选项4</span>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
+          <el-menu-item index="/douBan/ComingSoon">即将上映</el-menu-item>
+          <el-menu-item index="/douBan/InTheaters">正在热映</el-menu-item>
+          <el-menu-item index="/douBan/Top250">Top250</el-menu-item>
         </el-submenu>
-        <el-menu-item index="4">
+        <el-menu-item index="/douBan/ComingSoon">
           <i class="el-icon-setting"></i>
           <span slot="title">设置</span>
         </el-menu-item>
@@ -58,7 +57,7 @@
         >
           <img
             class="gitHub"
-            src="@/assets/GitHub.png"
+            src="@/assets/logo/GitHub.png"
             alt
           />
         </el-link>
@@ -81,7 +80,7 @@ export default {
   name: "container",
   data() {
     return {
-      isCollapse: ""
+      isCollapse: false
     };
   },
   components: {
@@ -95,6 +94,5 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-
 </style>
 

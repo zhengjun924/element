@@ -7,6 +7,7 @@ module.exports = {
         config.resolve.alias
             .set('@', resolve('src'))
             .set('assets', resolve('src/assets'))
+            .set('utils', resolve('src/utils'))
             .set('components', resolve('src/components'))
             .set('pages', resolve('src/pages'))
     },

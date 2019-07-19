@@ -2,7 +2,7 @@
   <div>
     <el-carousel
       indicator-position="none"
-      height="72vh"
+      height="76vh"
     >
       <el-carousel-item
         v-for="(item,key) in imgList"
@@ -20,10 +20,10 @@ export default {
   data() {
     return {
       imgList: [
-        require("@/assets/1.jpg"),
-        require("@/assets/2.jpg"),
-        require("@/assets/3.jpg"),
-        require("@/assets/4.jpg")
+        require("@/assets/carousel/1.jpg"),
+        require("@/assets/carousel/2.jpg"),
+        require("@/assets/carousel/3.jpg"),
+        require("@/assets/carousel/4.jpg")
       ]
     };
   }

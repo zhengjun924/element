@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :span="24">
-      <img src="../assets/logo.png">
+      <img src="@/assets/logo/logo.png">
       <router-view />
     </el-col>
   </el-row>
@@ -9,9 +9,13 @@
 <style scoped lang="less">
 .el-row {
   margin: 0 auto;
-}
-.el-col {
-  border-radius: 4px;
-  text-align: center;
+  .el-col {
+    border-radius: 4px;
+    text-align: center;
+    img{
+      position: relative;
+      left: 40px;
+    }
+  }
 }
 </style>
