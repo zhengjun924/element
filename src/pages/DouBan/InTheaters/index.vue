@@ -1,26 +1,31 @@
 <template>
-  <el-row :gutter="20">
+  <el-row :gutter="15">
     <el-col
       :span="4"
       v-for="(item,key) in movieList"
       :key="key"
     >
-      <el-card>
+      <el-card :body-style="{ height:'350px',padding: '0px' }">
         <el-image
           fit="fit"
-          :src="item.images.small"
+          :src="`https://images.weserv.nl/?url=${item.images.small}`"
         ></el-image>
-        <div style="padding: 5 10px;">
+        <div class="movieDetail">
           <p>电影名：{{item.title}}</p>
-          <p>电影类型：{{item.genres}}</p>
-          <p>主演:
-            <span
-              v-for="(cast,key) in item.casts"
-              :key="key"
-            >
-              {{cast.name}}
-            </span>
-          </p>
+          <p>电影类型：<span
+                v-for="(name,key) in item.genres"
+                :key="key"
+              >
+                {{name}}、
+              </span></p>
+            <p>主演:
+              <span
+                v-for="(cast,key) in item.casts"
+                :key="key"
+              >
+                {{cast.name}}、
+              </span>
+            </p>
           <!-- <div class="bottom clearfix">
               <time class="time">{{ currentDate }}</time>
               <el-button
@@ -56,7 +61,21 @@ export default {
 </script>
 
 <style lang="less" scoped>
-p {
-  margin: 0;
+.el-col {
+  margin-bottom: 10px;
+  .el-image {
+    width: 205px;
+    height: 240px;
+  }
+  .movieDetail {
+    padding: 0px 10px;
+    p {
+      margin: 1px;
+      span {
+        font-size: 14px;
+        color: #000;
+      }
+    }
+  }
 }
 </style>
