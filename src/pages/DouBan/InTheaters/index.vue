@@ -13,26 +13,19 @@
         <div class="movieDetail">
           <p>电影名：{{item.title}}</p>
           <p>电影类型：<span
-                v-for="(name,key) in item.genres"
-                :key="key"
-              >
-                {{name}}、
-              </span></p>
-            <p>主演:
-              <span
-                v-for="(cast,key) in item.casts"
-                :key="key"
-              >
-                {{cast.name}}、
-              </span>
-            </p>
-          <!-- <div class="bottom clearfix">
-              <time class="time">{{ currentDate }}</time>
-              <el-button
-                type="text"
-                class="button"
-              >操作按钮</el-button>
-            </div> -->
+              v-for="(name,key) in item.genres"
+              :key="key"
+            >
+              {{name}}、
+            </span></p>
+          <p>主演:
+            <span
+              v-for="(cast,key) in item.casts"
+              :key="key"
+            >
+              {{cast.name}}、
+            </span>
+          </p>
         </div>
       </el-card>
     </el-col>
@@ -43,7 +36,8 @@
 export default {
   data() {
     return {
-      movieList: []
+      movieList: [],
+      centerDialogVisible: false
     };
   },
   methods: {

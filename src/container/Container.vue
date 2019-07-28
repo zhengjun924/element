@@ -3,7 +3,7 @@
     <el-aside width="auto">
       <router-link to="/welcome">
         <img
-          src="@/assets/logo/logo.png"
+          src="@/assets/images/logo/logo.png"
           alt=""
           class="logo"
         >
@@ -30,10 +30,15 @@
           <el-menu-item index="/douBan/InTheaters">正在热映</el-menu-item>
           <el-menu-item index="/douBan/Top250">Top250</el-menu-item>
         </el-submenu>
-        <el-menu-item index="/douBan/ComingSoon">
-          <i class="el-icon-setting"></i>
-          <span slot="title">设置</span>
-        </el-menu-item>
+        <el-submenu index="/kuGou">
+          <template slot="title">
+            <i class="el-icon-headset"></i>
+            <span slot="title">酷狗音乐</span>
+          </template>
+          <el-menu-item index="/kuGou/musicList">音乐排行榜</el-menu-item>
+          <el-menu-item index="/douBan/InTheaters">正在热映</el-menu-item>
+          <el-menu-item index="/douBan/Top250">Top250</el-menu-item>
+        </el-submenu>
       </el-menu>
     </el-aside>
     <el-container>
@@ -57,7 +62,7 @@
         >
           <img
             class="gitHub"
-            src="@/assets/logo/GitHub.png"
+            src="@/assets/images/logo/GitHub.png"
             alt
           />
         </el-link>

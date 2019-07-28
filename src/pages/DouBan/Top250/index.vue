@@ -26,13 +26,6 @@
                 {{cast.name}}、
               </span>
             </p>
-          <!-- <div class="bottom clearfix">
-              <time class="time">{{ currentDate }}</time>
-              <el-button
-                type="text"
-                class="button"
-              >操作按钮</el-button>
-            </div> -->
         </div>
       </el-card>
     </el-col>

@@ -13,6 +13,8 @@ import ComingSoon from '@/pages/DouBan/ComingSoon'
 import InTheaters from '@/pages/DouBan/InTheaters'
 import Top250 from '@/pages/DouBan/Top250'
 
+import MusicList from '@/pages/KuGou/MusicList'
+
 
 
 Vue.use(Router);
@@ -106,6 +108,14 @@ const router = new Router({
                     component: Top250,
                     meta: {
                         title: 'top250'
+                    }
+                },
+                {
+                    path: '/kuGou/musicList',
+                    name: 'musicList',
+                    component: MusicList,
+                    meta: {
+                        title: '音乐排行榜'
                     }
                 },
             ]

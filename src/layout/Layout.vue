@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :span="24">
-      <img src="@/assets/logo/logo.png">
+      <img src="@/assets/images/logo/logo.png">
       <router-view />
     </el-col>
   </el-row>
