@@ -14,7 +14,6 @@
       <el-dropdown @command='handClick'>
         <el-avatar
           :size="60"
-          @error="errorHandler"
         >
           <img :src="defaultAvatar" />
         </el-avatar>

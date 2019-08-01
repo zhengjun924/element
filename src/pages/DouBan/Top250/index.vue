@@ -8,7 +8,8 @@
       <el-card :body-style="{ height:'350px',padding: '0px' }">
         <el-image
           fit="fit"
-          :src="`https://images.weserv.nl/?url=${item.images.small}`"
+          :lazy="true"
+          :src="item.images.small"
         ></el-image>
         <div class="movieDetail">
           <p>电影名：{{item.title}}</p>

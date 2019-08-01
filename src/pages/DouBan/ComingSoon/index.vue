@@ -14,26 +14,32 @@
             inline
             class="demo-table-expand"
           >
-            <el-form-item label="标题">
+            <el-form-item label="标题:">
               <span>{{ props.row.title }}</span>
             </el-form-item>
-            <el-form-item label="所属店铺">
-              <span>{{ props.row.shop }}</span>
+            <el-form-item label="上映时间:">
+              <span>{{ props.row.mainland_pubdate }}（中国大陆）</span>
             </el-form-item>
-            <el-form-item label="主演">
+            <el-form-item label="主演:">
               <span>{{ props.row.casts }}</span>
             </el-form-item>
-            <el-form-item label="店铺 ID">
-              <span>{{ props.row.shopId }}</span>
+            <el-form-item label="电影 ID:">
+              <span>{{ props.row.mid }}</span>
             </el-form-item>
-            <el-form-item label="商品分类">
-              <span>{{ props.row.category }}</span>
+            <el-form-item label="电影分类:">
+              <span>{{ props.row.genres }}</span>
             </el-form-item>
-            <el-form-item label="店铺地址">
-              <span>{{ props.row.address }}</span>
+            <el-form-item label="电影地址:">
+              <span>{{ props.row.alt }}</span>
             </el-form-item>
-            <el-form-item label="商品描述">
+            <el-form-item label="电影简介:">
               <span>{{ props.row.summary }}</span>
+            </el-form-item>
+            <el-form-item label="电影海报:">
+              <el-image
+                :lazy="true"
+                :src="`https://images.weserv.nl/?url=${props.row.poster}`"
+              ></el-image>
             </el-form-item>
           </el-form>
         </template>
@@ -93,6 +99,7 @@
       @close="closeDialogTable"
       @sure="handleSumit"
       :dialogTableVisible="dialogTableVisible"
+      :formList="formData"
     />
   </div>
 </template>
@@ -106,6 +113,7 @@ export default {
     return {
       isFullscreen: false,
       tableData: [],
+      formData: {},
       dialogTableVisible: false
     };
   },
@@ -120,6 +128,17 @@ export default {
       this.tableData = data;
     },
     handleEdit(index, row) {
+      const { mid } = row;
+      this.$axios
+        .post("/zheng/amusement/movies/comingSoon/edit", {
+          mid: mid
+        })
+        .then(response => {
+          const { data } = response;
+          const [res] = data;
+          this.formData = res;
+        })
+        .catch(error => console.log(error));
       this.dialogTableVisible = true;
     },
     async handleDelete(index, row) {
@@ -129,7 +148,7 @@ export default {
       } = await this.$axios.post("/zheng/amusement/movies/comingSoon/delete", {
         mid: mid
       });
-      
+
       this.$message({
         type: "success",
         message: msg
@@ -138,12 +157,11 @@ export default {
       this.getMovieList();
     },
     closeDialogTable(bool) {
-      console.log(bool);
       this.dialogTableVisible = false;
     },
-    handleSumit(form) {
+    async handleSumit(form) {
       this.dialogTableVisible = false;
-      console.log(form);
+      const { data } = await this.$axios.post("/zheng/amusement/movies/comingSoon/update", form);
     }
   },
   mounted() {
@@ -163,6 +181,16 @@ export default {
   margin-right: 0;
   margin-bottom: 0;
   width: 50%;
+  .el-image {
+    width: 68px;
+    height: 68px;
+    &:hover {
+      width: 100%;
+      height: 100%;
+      transform: rotateZ(360deg);
+      transition: all 2s ease-in-out;
+    }
+  }
 }
 .des {
   text-indent: 2em;

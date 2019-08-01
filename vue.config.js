@@ -14,7 +14,7 @@ module.exports = {
     devServer: {
         proxy: {
             '/zheng': {
-                target: 'http://localhost:8088',
+                target: 'http://localhost:9090',
                 changeOrigin: true,
             },
         }
