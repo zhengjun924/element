@@ -25,7 +25,7 @@
       >
         <el-input
           type="password"
-          v-model="ruleForm.pass"
+          v-model="ruleForm.password"
           autocomplete="off"
         ></el-input>
       </el-form-item>
@@ -73,11 +73,11 @@ export default {
     return {
       ruleForm: {
         email: "",
-        pass: ""
+        password: ""
       },
       rules: {
         email: [{ validator: checkEmail, trigger: "blur" }],
-        pass: [{ validator: validatePass, trigger: "blur" }]
+        password: [{ validator: validatePass, trigger: "blur" }]
       }
     };
   },
@@ -85,10 +85,25 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          const res = await this.$axios.post('/zheng/user/login',this.ruleForm) 
+          const {
+            data: { token, status, msg }
+          } = await this.$axios.post("/zheng/user/login", this.ruleForm);
+          if (status === 1) {
+            window.sessionStorage.setItem("token", token);
+            this.$router.replace({
+              path: "/welcome"
+            });
+            this.$message({
+              message: msg,
+              type: "success"
+            });
+          } else {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+          }
         } else {
-          window.sessionStorage.setItem('token','1234');
-          console.log("error submit!!");
           return false;
         }
       });
@@ -96,7 +111,7 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
-  },
+  }
 };
 </script>
 <style scoped lang="less">

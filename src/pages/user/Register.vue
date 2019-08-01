@@ -28,11 +28,11 @@
       </el-form-item>
       <el-form-item
         label="密码"
-        prop="pass"
+        prop="password"
       >
         <el-input
           type="password"
-          v-model="ruleForm.pass"
+          v-model="ruleForm.password"
           autocomplete="off"
         ></el-input>
       </el-form-item>
@@ -87,10 +87,12 @@ export default {
       ) {
         return callback(new Error("请填写正确的邮箱"));
       } else {
-        const { data } = await this.$axios.post("/zheng/user/register/email", {
+        const {
+          data: { msg }
+        } = await this.$axios.post("/zheng/user/register/email", {
           email: value
         });
-        if (data.msg == "已存在") {
+        if (msg == "已存在") {
           return callback(new Error("号码已存在"));
         } else {
           callback();
@@ -104,10 +106,12 @@ export default {
       if (!/^1[3456789]\d{9}$/.test(value)) {
         return callback(new Error("请填写正确的手机号"));
       } else {
-        const { data } = await this.$axios.post("/zheng/user/register/phone", {
+        const {
+          data: { msg }
+        } = await this.$axios.post("/zheng/user/register/phone", {
           phone: value
         });
-        if (data.msg == "已存在") {
+        if (msg == "已存在") {
           return callback(new Error("号码已存在"));
         } else {
           callback();
@@ -121,16 +125,13 @@ export default {
       if (!/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/.test(value)) {
         callback(new Error("请输入非纯数字、纯字母、纯特殊字符8-16位的密码"));
       } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
         callback();
       }
     };
     const validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.ruleForm.password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
@@ -141,13 +142,13 @@ export default {
         userName: "",
         email: "",
         phone: "",
-        pass: ""
+        password: ""
       },
       rules: {
         userName: [{ validator: checkUsername, trigger: "blur" }],
         email: [{ validator: checkEmail, trigger: "blur" }],
         phone: [{ validator: checkPhone, trigger: "blur" }],
-        pass: [{ validator: validatePass, trigger: "blur" }],
+        password: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }]
       }
     };
@@ -156,7 +157,10 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          // await $axios.post('/zheng/user/register',this.ruleForm)
+          const { data } = await this.$axios.post(
+            "/zheng/user/register",
+            this.ruleForm
+          );
         } else {
           return false;
         }
@@ -165,12 +169,6 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
-  },
-  watch: {
-    "ruleForm.userName"(newval) {}
-  },
-  mounted() {
-    // alert(32453)
   }
 };
 </script>
