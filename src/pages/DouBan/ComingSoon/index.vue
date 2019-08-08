@@ -3,6 +3,10 @@
     ref="screen"
     class="comingSoon"
   >
+    <el-button type="primary">
+      <i class="el-icon-plus"></i>
+      添加
+    </el-button>
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -85,13 +89,20 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
+            type="warning"
             @click="handleEdit(scope.$index, scope.row)"
-          >编辑</el-button>
+          >
+          <i class="el-icon-edit-outline"></i>
+          编辑
+          </el-button>
           <el-button
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)"
-          >删除</el-button>
+          >
+            <i class="el-icon-delete"></i>
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -161,7 +172,10 @@ export default {
     },
     async handleSumit(form) {
       this.dialogTableVisible = false;
-      const { data } = await this.$axios.post("/zheng/amusement/movies/comingSoon/update", form);
+      const { data } = await this.$axios.post(
+        "/zheng/amusement/movies/comingSoon/update",
+        form
+      );
     }
   },
   mounted() {

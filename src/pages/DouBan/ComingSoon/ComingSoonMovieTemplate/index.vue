@@ -4,7 +4,7 @@
       :visible.sync="dialogTableVisible"
       :show-close="false"
       :close-on-click-modal="false"
-      :close-on-press-escape="false"
+      @keyup.enter.native="handleEsc"
     >
       <el-form
         :model="form"
@@ -148,12 +148,24 @@ export default {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
       return isLt2M;
+    },
+    keydown() {
+      let This = this; //存一下this
+      document.onkeydown = function(event) {
+        let e = event || window.event || arguments.callee.caller.arguments[0];
+        if (e && e.keyCode == 27) {
+          This.$emit("close", This.dialogTableVisible);
+        }
+      };
     }
   },
   watch: {
     formList(movieInfo) {
       this.form = movieInfo;
     }
+  },
+  created() {
+    this.keydown();
   }
 };
 </script>
