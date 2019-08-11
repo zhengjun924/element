@@ -3,7 +3,10 @@
     ref="screen"
     class="comingSoon"
   >
-    <el-button type="primary">
+    <el-button
+      type="primary"
+      @click="handleAdd"
+    >
       <i class="el-icon-plus"></i>
       添加
     </el-button>
@@ -92,8 +95,8 @@
             type="warning"
             @click="handleEdit(scope.$index, scope.row)"
           >
-          <i class="el-icon-edit-outline"></i>
-          编辑
+            <i class="el-icon-edit-outline"></i>
+            编辑
           </el-button>
           <el-button
             size="mini"
@@ -108,9 +111,9 @@
     </el-table>
     <ComingSoonMovieTemplate
       @close="closeDialogTable"
-      @sure="handleSumit"
       :dialogTableVisible="dialogTableVisible"
       :formList="formData"
+      :addState="addState"
     />
   </div>
 </template>
@@ -125,7 +128,8 @@ export default {
       isFullscreen: false,
       tableData: [],
       formData: {},
-      dialogTableVisible: false
+      dialogTableVisible: false,
+      addState: true
     };
   },
   components: {
@@ -137,6 +141,10 @@ export default {
         `/zheng/amusement/movies/comingSoon`
       );
       this.tableData = data;
+    },
+    handleAdd() {
+      this.dialogTableVisible = true;
+      this.formData = {};
     },
     handleEdit(index, row) {
       const { mid } = row;
@@ -150,6 +158,7 @@ export default {
           this.formData = res;
         })
         .catch(error => console.log(error));
+      this.addState = false;
       this.dialogTableVisible = true;
     },
     async handleDelete(index, row) {
@@ -169,13 +178,6 @@ export default {
     },
     closeDialogTable(bool) {
       this.dialogTableVisible = false;
-    },
-    async handleSumit(form) {
-      this.dialogTableVisible = false;
-      const { data } = await this.$axios.post(
-        "/zheng/amusement/movies/comingSoon/update",
-        form
-      );
     }
   },
   mounted() {
@@ -183,36 +185,4 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
-.demo-table-expand {
-  font-size: 0;
-}
-.demo-table-expand label {
-  width: 90px;
-  color: #99a9bf;
-}
-.demo-table-expand .el-form-item {
-  margin-right: 0;
-  margin-bottom: 0;
-  width: 50%;
-  .el-image {
-    width: 68px;
-    height: 68px;
-    &:hover {
-      width: 100%;
-      height: 100%;
-      transform: rotateZ(360deg);
-      transition: all 2s ease-in-out;
-    }
-  }
-}
-.des {
-  text-indent: 2em;
-}
-.summary {
-  width: 60px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-</style>
+

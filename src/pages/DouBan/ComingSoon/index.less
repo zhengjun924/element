@@ -1,4 +1,35 @@
 .comingSoon {
+  .demo-table-expand {
+    font-size: 0;
+    .des {
+      text-indent: 2em;
+    }
+    .summary {
+      width: 60px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+  }
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+    .el-image {
+      width: 68px;
+      height: 68px;
+      &:hover {
+        width: 100%;
+        height: 100%;
+        transform: rotateZ(360deg);
+        transition: all 2s ease-in-out;
+      }
+    }
+  }
   .el-input {
     width: 120px;
     margin-bottom: 10px;
