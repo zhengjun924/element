@@ -34,6 +34,18 @@
           </el-avatar>
         </el-upload>
         <el-form-item
+          label="电影 ID:"
+          prop="mid"
+          :label-width="formLabelWidth"
+        >
+          <el-input
+            v-model="formList.mid"
+            autocomplete="off"
+            disabled
+            placeholder="请输入id"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
           label="标题:"
           prop="title"
           :label-width="formLabelWidth"
@@ -78,17 +90,6 @@
           >
             >
           </el-date-picker>
-        </el-form-item>
-        <el-form-item
-          label="电影 ID:"
-          prop="mid"
-          :label-width="formLabelWidth"
-        >
-          <el-input
-            v-model="formList.mid"
-            autocomplete="off"
-            placeholder="请输入id"
-          ></el-input>
         </el-form-item>
         <el-form-item
           label="电影地址:"
@@ -201,7 +202,7 @@ export default {
     handleAdd(movieForm) {
       this.$refs[movieForm].validate(async valid => {
         if (valid) {
-          const { data } = await this.$axios.post(
+          const { data } = await this.$post(
             "/zheng/amusement/movies/comingSoon/add",
             this.formList
           );
@@ -215,7 +216,7 @@ export default {
     handleUpdate(movieForm) {
       this.$refs[movieForm].validate(async valid => {
         if (valid) {
-          const { data } = await this.$axios.post(
+          const { data } = await this.$post(
             "/zheng/amusement/movies/comingSoon/update",
             this.formList
           );

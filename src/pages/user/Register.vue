@@ -69,7 +69,7 @@ export default {
       if (!/^[0-9a-zA-Z]{3,}$/.test(value)) {
         return callback(new Error("请填写除字符外至少三位的非中文用户名"));
       } else {
-        const { data } = await this.$axios.post(
+        const { data } = await this.$post(
           "/zheng/user/register/userName",
           { userName: value }
         );
@@ -89,7 +89,7 @@ export default {
       } else {
         const {
           data: { msg }
-        } = await this.$axios.post("/zheng/user/register/email", {
+        } = await this.$post("/zheng/user/register/email", {
           email: value
         });
         if (msg == "已存在") {
@@ -108,7 +108,7 @@ export default {
       } else {
         const {
           data: { msg }
-        } = await this.$axios.post("/zheng/user/register/phone", {
+        } = await this.$post("/zheng/user/register/phone", {
           phone: value
         });
         if (msg == "已存在") {
@@ -157,7 +157,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          const { data } = await this.$axios.post(
+          const { data } = await this.$post(
             "/zheng/user/register",
             this.ruleForm
           );

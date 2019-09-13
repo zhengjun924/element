@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     async getMusicList() {
-      const { data: res } = await this.$axios.get("/zheng/amusement/music/new");
+      const { data: res } = await this.$get("/zheng/amusement/music/new");
       const { data: musicList } = JSON.parse(res);
       this.musicList = musicList;
       console.log(musicList);

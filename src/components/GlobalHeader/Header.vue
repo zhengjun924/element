@@ -12,9 +12,7 @@
       class="rightBox"
     >
       <el-dropdown @command='handClick'>
-        <el-avatar
-          :size="60"
-        >
+        <el-avatar :size="60">
           <img :src="defaultAvatar" />
         </el-avatar>
         <el-dropdown-menu slot="dropdown">
@@ -31,7 +29,7 @@ export default {
   data() {
     return {
       isCollapse: false,
-      defaultAvatar:""
+      defaultAvatar: ""
     };
   },
   watch: {
@@ -61,14 +59,14 @@ export default {
     errorHandler() {
       return true;
     },
-    async getAvatar(){
-      const {data} = await this.$axios.get('/zheng/userinfo/getHeadSculpture')
+    async getAvatar() {
+      const { data } = await this.$get("/zheng/userinfo/getHeadSculpture");
       this.defaultAvatar = data.url;
     }
   },
   mounted() {
     this.getAvatar();
-  },
+  }
 };
 </script>
 

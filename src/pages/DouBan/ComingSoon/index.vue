@@ -37,7 +37,10 @@
               <span>{{ props.row.genres }}</span>
             </el-form-item>
             <el-form-item label="电影地址:">
-              <span>{{ props.row.alt }}</span>
+              <a
+                :href="props.row.alt"
+                target="_blank"
+              >{{ props.row.alt }}</a>
             </el-form-item>
             <el-form-item label="电影简介:">
               <span>{{ props.row.summary }}</span>
@@ -45,7 +48,7 @@
             <el-form-item label="电影海报:">
               <el-image
                 :lazy="true"
-                :src="`https://images.weserv.nl/?url=${props.row.poster}`"
+                :src="props.row.poster"
               ></el-image>
             </el-form-item>
           </el-form>
@@ -67,22 +70,20 @@
         width="60"
       >
         <template slot-scope="scope">
-          <el-popover
-            trigger="hover"
-            placement="top"
-            width="300"
+          <el-tooltip
+            popper-class="item"
+            effect="dark"
+            :content="scope.row.summary"
+            placement="left"
           >
-            <p class="des">{{ scope.row.summary }}</p>
-            <div
-              slot="reference"
-              class="name-wrapper"
+            <el-button
+              size="mini"
+              type="primary"
             >
-              <el-tag
-                class="summary"
-                size="medium"
-              >{{ scope.row.summary }}</el-tag>
-            </div>
-          </el-popover>
+              <i class="el-icon-s-comment"></i>
+              {{ scope.row.summary }}
+            </el-button>
+          </el-tooltip>
         </template>
       </el-table-column>
       <el-table-column
@@ -119,8 +120,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import ComingSoonMovieTemplate from "./ComingSoonMovieTemplate";
 import "./index.less";
+
+const addconsole = {
+  created() {
+    console.log(321412)
+  },
+}
 
 export default {
   data() {
@@ -132,14 +140,13 @@ export default {
       addState: true
     };
   },
+  computed: {},
   components: {
     ComingSoonMovieTemplate
   },
   methods: {
     async getMovieList() {
-      const { data } = await this.$axios.get(
-        `/zheng/amusement/movies/comingSoon`
-      );
+      const { data } = await this.$get(`/zheng/amusement/movies/comingSoon`);
       this.tableData = data;
     },
     handleAdd() {
@@ -148,10 +155,9 @@ export default {
     },
     handleEdit(index, row) {
       const { mid } = row;
-      this.$axios
-        .post("/zheng/amusement/movies/comingSoon/edit", {
-          mid: mid
-        })
+      this.$post("/zheng/amusement/movies/comingSoon/edit", {
+        mid: mid
+      })
         .then(response => {
           const { data } = response;
           const [res] = data;
@@ -165,7 +171,7 @@ export default {
       const { mid } = row;
       const {
         data: { msg }
-      } = await this.$axios.post("/zheng/amusement/movies/comingSoon/delete", {
+      } = await this.$post("/zheng/amusement/movies/comingSoon/delete", {
         mid: mid
       });
 
@@ -182,7 +188,9 @@ export default {
   },
   mounted() {
     this.getMovieList();
-  }
+    console.log(this.$store.state);
+  },
+  mixmins:[addconsole]
 };
 </script>
 

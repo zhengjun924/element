@@ -87,7 +87,8 @@ export default {
         if (valid) {
           const {
             data: { token, status, msg }
-          } = await this.$axios.post("/zheng/user/login", this.ruleForm);
+          } = await this.$post("/zheng/user/login", this.ruleForm);
+          
           if (status === 1) {
             window.sessionStorage.setItem("token", token);
             this.$router.replace({

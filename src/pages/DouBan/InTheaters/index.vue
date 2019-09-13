@@ -45,7 +45,7 @@ export default {
     async getMovieList() {
       const {
         data: { subjects }
-      } = await this.$axios.get("/zheng/amusement/movies/inTheaters");
+      } = await this.$get("/zheng/amusement/movies/inTheaters");
       this.movieList = subjects;
     }
   },

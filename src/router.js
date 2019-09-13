@@ -23,10 +23,6 @@ const router = new Router({
     mode: 'history',
     routes: [
         {
-            path: "*",
-            redirect: '/welcome'
-        },
-        {
             path: '/user',
             redirect: '/user/login',
             component: Layout,
